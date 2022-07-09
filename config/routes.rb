@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :customers
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords',
+    registrations: 'admins/registrations'
+  }
+  devise_for :customers, controllers: {
+    sessions:      'customers/sessions',
+    passwords:     'customers/passwords',
+    registrations: 'customers/registrations'
+  }
+
   namespace :admin do
     root to: 'homes#top'
-    #resources :sessions, only: [:new, :create, :destroy]
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
@@ -19,8 +28,6 @@ Rails.application.routes.draw do
     get 'orders/comfirm' => 'orders/comfirm'
     get 'orders/complete' => 'orders/complete'
     resources :items, only: [:index, :show,]
-   # resources :registrations, only: [:new, :create]
-   # resources :sessions, only: [:new, :create, :destroy]
     resources :customers, only: [:show, :edit, :update]
     resources :cart_items, only: [:index, :create, :update, :destroy]
     resources :orders, only: [:index, :new, :create, :show]
