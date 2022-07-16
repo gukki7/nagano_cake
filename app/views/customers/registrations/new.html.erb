@@ -1,15 +1,41 @@
-<h2>Sign up</h2>
+<div class = col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0>
+<h2>新規会員登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "customers/shared/error_messages", resource: resource %>
-
+  
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <%= f.label :customer_last_name, "姓" %><br>
+  <%= f.text_field :customer_last_name %>
+  </div>
+  
+  <div class="field">
+  <%= f.label :customer_first_name, "名" %><br>
+  <%= f.text_field :customer_first_name %>
+  </div>
+  
+  <div class="field">
+  <%= f.label :customer_last_name_kana, "セイ" %><br>
+  <%= f.text_field :customer_last_name %>
+  </div>
+  
+  <div class="field">
+  <%= f.label :customer_first_name_kana, "メイ" %><br>
+  <%= f.text_field :customer_first_name %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :postal_code, "郵便番号" %><br>
+    <%= f.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "パスワード（６文字以上）" %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -17,13 +43,15 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
+  
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
 
 <%= render "customers/shared/links" %>
+
+</div>
