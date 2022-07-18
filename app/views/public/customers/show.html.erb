@@ -6,11 +6,15 @@
       <th> 氏名 </th>
       <th> <%= @customer.last_name %>
            <%= @customer.first_name %>
-           </th>
+      </th>
     </tr>
-<tr>
-  <th> introduction</th>
-  <th> <%= user.introduction %></th>
-</tr>
+      <th> カナ </th>
+      <th> <%= @customer.last_name_kana %>
+           <%= @customer.first_name_kana %>
+      </th>
+    <tr>
+      <th> 郵便番号 </th>
+      <th> <%= @customer.postal_code %> </th>
+    </tr>
 </tbody>
 </table>
