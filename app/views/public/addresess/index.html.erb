@@ -1,0 +1,23 @@
+<div class="col-md-3">
+  <h1>配送先登録/一覧</h1>
+  
+<%= form_with model: @customers do |f| %>
+  <div class="field">
+    <%= f.label :postal_code, "郵便番号" %><br>
+    <%= f.text_field :postal_code %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :name, "宛名" %><br>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>

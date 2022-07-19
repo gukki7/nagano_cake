@@ -1,0 +1,31 @@
+<h2>注文履歴一覧</h2>
+<table class = "table">
+  <tbody>
+    <tr>
+      <th> 注文日 </th>
+      <th> <%= @customer.last_name %>
+           <%= @customer.first_name %>
+      </th>
+    </tr>
+      <th> 配送先 </th>
+      <th> <%= @customer.last_name_kana %>
+           <%= @customer.first_name_kana %>
+      </th>
+    <tr>
+      <th> 注文商品 </th>
+      <th> <%= @customer.postal_code %> </th>
+    </tr>
+    <tr>
+      <th> 支払金額 </th>
+      <th> <%= @customer.address %> </th>
+    </tr>
+    <tr>
+      <th> ステータス </th>
+      <th> <%= @customer.telephone_number %> </th>
+    </tr>
+    <tr>
+      <th> 注文詳細 </th>
+      <th> <%= @customer.email %> </th>
+    </tr>
+</tbody>
+</table>

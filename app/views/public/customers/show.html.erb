@@ -1,5 +1,6 @@
 <div class="col-md-3">
   <h1>マイページ</h1>
+　<th>登録情報<%= link_to '編集する', edit_public_customer_path %></th>
 <table class = "table">
   <tbody>
     <tr>
@@ -16,5 +17,19 @@
       <th> 郵便番号 </th>
       <th> <%= @customer.postal_code %> </th>
     </tr>
+    <tr>
+      <th> 住所 </th>
+      <th> <%= @customer.address %> </th>
+    </tr>
+    <tr>
+      <th> 電話番号 </th>
+      <th> <%= @customer.telephone_number %> </th>
+    </tr>
+    <tr>
+      <th> メールアドレス </th>
+      <th> <%= @customer.email %> </th>
+    </tr>
 </tbody>
 </table>
+  <th>配送先一覧<%= link_to '一覧を見る', public_addresses_path %></th><br />
+  <th>注文履歴<%= link_to '一覧を見る', public_orders_path %></th>
