@@ -11,7 +11,7 @@
 <% end %>
   </ul>
 
-<%= form_with model: @customer do |f| %>
+<%= form_with model: @customer, url: public_customer_path do |f| %>
 <div class = "form-group">
   <label for="inputName">姓</label>
  <div> <%= f.text_field :last_name, autofocus: true, id:"inputName", placeholder:"姓"%></div>

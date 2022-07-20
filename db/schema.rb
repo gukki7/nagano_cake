@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_07_09_080806) do
 
   create_table "addresses", force: :cascade do |t|
+    t.integer "customer_id", null: false
     t.string "name", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
@@ -34,6 +35,8 @@ ActiveRecord::Schema.define(version: 2022_07_09_080806) do
   end
 
   create_table "cart_items", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "customer_id", null: false
     t.integer "amount", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -66,15 +69,18 @@ ActiveRecord::Schema.define(version: 2022_07_09_080806) do
   end
 
   create_table "items", force: :cascade do |t|
+    t.integer "genre_id", null: false
     t.string "name", null: false
-    t.string "introduction", null: false
-    t.string "price", null: false
+    t.text "introduction", null: false
+    t.integer "price", null: false
     t.boolean "is_active", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "order_details", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "item_id", null: false
     t.integer "price", null: false
     t.integer "amount", null: false
     t.integer "making_status", null: false
@@ -86,7 +92,8 @@ ActiveRecord::Schema.define(version: 2022_07_09_080806) do
     t.string "postal_code", null: false
     t.string "address", null: false
     t.string "name", null: false
-    t.integer "postage", null: false
+    t.integer "customer_", null: false
+    t.integer "total_payment", null: false
     t.integer "shipping_cost", null: false
     t.integer "payment_method", null: false
     t.integer "status", null: false
