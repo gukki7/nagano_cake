@@ -9,3 +9,28 @@
     <th colspan = "3"></th>
     </tr>
   </thead>
+  <tbody>
+  <% @cart_items.each do |cart_item| %>
+    <tr>
+    <td><%= cart_item. %></td>
+    <td><%= cart_item. %></td>
+    <td><%= cart_item.amount %></td>
+    <td><%= cart_item. %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+ <tr>
+ <td><%= link_to public_item_path(@public_cart_item.id) do %>
+     <%= image_tag @item.get_item_image(100, 100) %>
+     <%= @item.name %>
+ </td>
+   <% end %>
+  <td><%=  link_to @book.title, book_path(@book.id) %></td>
+  <td><%= @book.body %></td>
+  <% if @book.user == current_user %>
+  <td> <%=  link_to "Edit", edit_book_path(@book.id) %></td>
+  <td> <%= link_to "Destroy", public_cart_item_path(@public_cart_item.id), method: :delete, data: {confirm: "本当に消しますか？"} %></td>
+  <% end %>
+  </tr>
