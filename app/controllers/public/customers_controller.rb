@@ -2,12 +2,12 @@ class Public::CustomersController < ApplicationController
   def show
     @customer = Customer.find(params[:id])
   end
-  
+
   def edit
     @customer = Customer.find(params[:id])
 
   end
-  
+
   def create
     @customers = Customer.all
     @customer = Customer.new(user_params)
@@ -17,4 +17,23 @@ class Public::CustomersController < ApplicationController
     puts "保存に失敗しました"
   end
   end
+
+  # 退会アクション
+  def unsubscribe
+    @customer = current_customer
+
+    # is_customer_statusカラムにフラグを立てる(default→false(有効状態)をtrue(無効状態)にする）
+    @customer.update(is_deleted: true)
+    # ログアウトさせる
+    reset_session
+
+    flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
+    redirect_to root_path
+  end
+
+  private
+    def customer_params
+      params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :email, :postal_code, :address, :phone_number, :is_deleted)
+    end
+
 end
