@@ -37,7 +37,6 @@
   <div class="field">
     <%= f.label :password, "パスワード（６文字以上）" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> </em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
@@ -48,10 +47,12 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "新規登録" %>
   </div>
 <% end %>
 
-<%= render "customers/shared/links" %>
+<h3>会員登録がお済みの方</h3>
+  <%= link_to "こちら", new_customer_session_path %>
+  <strong>からログインを行ってください。</strong>
 
 </div>
