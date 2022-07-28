@@ -22,13 +22,16 @@ Rails.application.routes.draw do
   namespace :public do
     root to: 'homes#top'
     get 'home/about' => 'homes#about'
+    get 'customers/my_page' => 'customers#show'
+    get 'customers/infomation/edit' => 'customers#edit'
+    #patch 'customers/infomation' => 'customers#update'
     get 'customers/unsubscribe' => 'customers#unsubscribe'
-    get 'customers/withdraw' => 'customers#withdraw'
-    get 'cart_items/destroy_all' => 'cart_items/destroy_all'
-    get 'orders/comfirm' => 'orders/comfirm'
-    get 'orders/complete' => 'orders/complete'
+    #patch 'customers/withdraw' => 'customers#withdraw'
+    #delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
+    post 'orders/comfirm' => 'orders#comfirm'
+    get 'orders/complete' => 'orders#complete'
     resources :items, only: [:index, :show,]
-    resources :customers, only: [:show, :edit, :update]
+    #resource :customers, only: [:edit, :update]
     resources :cart_items, only: [:index, :create, :update, :destroy]
     resources :orders, only: [:index, :new, :create, :show]
     resources :addresses, only: [:index, :create, :edit, :update, :destroy]
