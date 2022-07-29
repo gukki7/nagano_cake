@@ -11,32 +11,37 @@
 <% end %>
   </ul>
 
-<%= form_with model: @customer, url: public_customer_path do |f| %>
-<div class = "form-group">
-  <label for="inputName">姓</label>
- <div> <%= f.text_field :last_name, autofocus: true, id:"inputName", placeholder:"姓"%></div>
-</div>
-<div class = "form-group">
-  <label for="inputName">名</label>
- <div> <%= f.text_field :first_name, autofocus: true, id:"inputName", placeholder:"名"%></div>
-</div>
-<div class = "form-group">
-  <label for="inputName">セイ</label>
- <div> <%= f.text_field :last_name_kana, autofocus: true, id:"inputName", placeholder:"セイ"%></div>
-</div>
-<div class = "form-group">
-  <label for="inputName">メイ</label>
- <div> <%= f.text_field :first_name_kana, autofocus: true, id:"inputName", placeholder:"メイ"%></div>
-</div>
-<div class = "form-group">
-  <label for="inputImage">Image</label>
- <div> <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></div>
-</div>
-<div class = "form-group">
-  <label for="inputName">Introduction</label>
- <div> <%= f.text_area :introduction, autofocus: true, id:"inputName", placeholder:"Introduction"%></div>
-</div>
-  <%= f.submit "Update Customer" %>
+<%= form_with model: @customer, url: public_customers_infomation_path do |f| %>
+    <div>
+      <div class="col-xs-12">
+        <%= f.label :"氏名", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.text_field :last_name, class: "last_name col-sm-3 form-control-static name", style: "margin: 10px;" %>
+        <%= f.text_field :first_name, class: "first_name col-sm-3 form-control-static name", style: "margin: 10px;" %>
+      </div>
+      <div class="col-xs-12">
+        <%= f.label :"フリガナ", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.text_field :last_name_kana, class: "last_name_kana col-sm-3 form-control-static name", style: "margin: 10px;" %>
+        <%= f.text_field :first_name_kana, class: "first_name_kana col-sm-3 form-control-static name", style: "margin: 10px;" %>
+      </div>
+      <div class="col-xs-12">
+        <%= f.label :"メールアドレス", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-sm-6 form-control-static", style: "margin: 10px;" %>
+      </div>
+      <div class="col-xs-12">
+        <%= f.label :"郵便番号", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.text_field :postal_code, class: "col-sm-2 form-control-static", style: "margin: 10px;" %>
+      </div>
+      <div class="col-xs-12">
+        <%= f.label :"住所", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.text_field :address, class: "col-sm-8 form-control-static", style: "margin: 10px;" %>
+      </div>
+      <div class="col-xs-12">
+        <%= f.label :"電話番号(ハイフンなし)", class: "col-sm-3 control-label", style: "margin: 10px;" %>
+        <%= f.text_field :telephone_number, class: "col-sm-2 form-control-static", style: "margin: 10px;" %>
+      </div>
+    </div>
+  <%= f.submit "編集内容を保存" %>
+  <p><%= link_to " 退会する", public_customers_unsubscribe_path, class: "glyphicon glyphicon-tint btn btn-danger col-sm-3", style: "margin: 10px;" %></p>
 <% end %>
     </div>
   </div>
