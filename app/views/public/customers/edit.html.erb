@@ -11,7 +11,7 @@
 <% end %>
   </ul>
 
-<%= form_with model: @customer, url: public_customers_infomation_path do |f| %>
+<%= form_with model: @customer, url: public_customers_infomation_path , method: :patch do |f| %>
     <div>
       <div class="col-xs-12">
         <%= f.label :"氏名", class: "col-sm-3 control-label", style: "margin: 10px;" %>
