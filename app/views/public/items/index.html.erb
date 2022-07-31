@@ -1,9 +1,11 @@
 <div class="col-md-3">
   <h1>商品一覧（全件）</h1>
+  
+  <% @items.each do |item| %>
   <td>
     <%= link_to public_item_path(item.id) do %>
     <%= image_tag item.get__image(100, 100) %>
     <% end %>
   </td>
-
+  <% end %>
 

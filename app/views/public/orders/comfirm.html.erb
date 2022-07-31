@@ -35,9 +35,7 @@
       <table class="table table-hover table-condensed table-bordered">
           <tr>
             <th class="info">配送料</th>
-            <td class="text-right col-xs-5">
-              <!-- sessiomのデータを表示する場合、カラム名に""つける -->
-              ¥<%= session[:order]["shipping_cost"].to_s(:delimited, delimiter: ',') %>
+            <td class="text-right col-xs-5">         ¥<%= session[:order]["shipping_cost"].to_s(:delimited, delimiter: ',') %>
             </td>
           </tr>
           <tr>

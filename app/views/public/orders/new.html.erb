@@ -4,11 +4,10 @@
 	<h2><span class="label label-default">注文情報入力</span></h2>
 	</div>
 	<div class="panel-body">
-	  
+
     <%= form_with model: @orders, url: public_orders_path do |form| %>
 			<h3>支払方法</h3>
 
-			<!-- form.radio_button :カラム名, :保存される値(enumの番号) -->
 			<span>　　　</span><%= form.radio_button :method, 0, checked: "checked" %>
 	  		<%= form.label :クレジットカード %><br>
 	  		<span>　　　</span><%= form.radio_button :method, 1 %>
@@ -19,16 +18,14 @@
 
 			<span>　　　</span><%= form.radio_button :a_method, 0, checked: "checked" %>
 			<%= form.label :ご自身の住所 %><br>
-			<span>　　　　　</span><%= @customer.postal_code %>
-			<%= @customer.address %><br>
-			<span>　　　　　</span><%= @customer.last_name %>
-			<%= @customer.first_name %><br>
+			<span>　　　　　</span><%= @order.postal_code %>
+			<%= @order.address %><br>
+			<span>　　　　　</span><%= @order.name %><br>
 
 
 			<span>　　　</span><%= form.radio_button :a_method, 1 %>
 			<%= form.label :登録済住所から選択 %><br>
-			<!-- collection_select(プロパティ名, オブジェクトの配列, value属性の項目, テキストの項目 [, オプション])-->
-			<span>　　　　　</span><%= form.collection_select :shipping_address_for_order, @addresses, :id, :shipping_address_for_view %><br>
+			<span>　　　　　</span><%= form.collection_select :address_for_order, @addresses, :id, :address_for_view %><br>
 
 
 

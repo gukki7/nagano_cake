@@ -18,6 +18,13 @@ class Public::AddressesController < ApplicationController
   end
 
   def destroy
+    address = Address.find(params[:id])  # データ（レコード）を1件取得
+    if address.delete
+    redirect_to public_addresses_path,
+    notice: 'successfully'
+    else
+    render :index
+    end
   end
 
   def edit
