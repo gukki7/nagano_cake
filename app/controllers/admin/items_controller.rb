@@ -6,8 +6,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def index
-    @search = Item.ransack(params[:q])
-    @items = @search.result.page(params[:page]).per(10)
+    @items = Item.all
   end
 
   def new
@@ -17,10 +16,10 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to admins_item_path(@item)
+      redirect_to admin_item_path(@item)
     else
       flash[:genre_created_error] = "ジャンル名を入力してください"
-    redirect_to new_admins_item_path
+    redirect_to new_admin_item_path
     end
   end
 
@@ -31,15 +30,15 @@ class Admin::ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to admins_items_path(@item)
+      redirect_to admin_item_path(@item)
       flash[:notice_update] = "ジャンル情報を更新しました！"
     else
-      redirect_to edit_admins_item_path(@item)
+      redirect_to edit_admin_item_path(@item)
     end
   end
 
   private
   def item_params
-    params.require(:item).permit(:genre_id, :name, :description, :price_without_tax, :image, :is_sales_status)
+    params.require(:item).permit(:genre_id, :name, :introduction, :price, :item_image, :is_active)
   end
 end
