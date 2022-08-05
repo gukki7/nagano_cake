@@ -11,9 +11,35 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <% if customer_signed_in? %>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+
+      <% if  admin_signed_in? %>
+        <li>
+          <%= link_to "商品一覧", admin_items_path %>
+        </li>
+        <li>
+          <%= link_to "会員一覧", admin_customers_path  %>
+        </li>
+        <li>
+          <%= link_to "注文履歴一覧", admin_root_path %>
+        </li>
+        <li>
+          <%= link_to "ジャンル一覧", admin_genres_path %>
+        </li>
+        <li>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+        </li>
+
+      <% elsif customer_signed_in? %>
         <li>
           <%= link_to "マイページ",public_customers_my_page_path  %>
         </li>
@@ -40,24 +66,12 @@
           <%= link_to "ログイン", new_customer_session_path %>
         </li>
       <% end %>
-      
-      <% if  admin_signed_in? %>
-        <li>
-          <%= link_to "商品一覧", admin_items_path %>
-        </li>
-        <li>
-          <%= link_to "会員一覧", admin_customers_path  %>
-        </li>
-        <li>
-          <%= link_to "注文履歴一覧", admin_root_path %>
-        </li>
-        <li>
-          <%= link_to "ジャンル一覧", admin_genres_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-      <% end %>
+
+
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
     <%= yield %>
   </body>

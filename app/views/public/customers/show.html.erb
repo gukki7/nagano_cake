@@ -1,8 +1,8 @@
 <div class="col-md-3">
   <h1>マイページ</h1>
 　<th>登録情報<%= link_to '編集する',public_customers_infomation_edit_path %></th>
-<table class = "table">
-  <tbody>
+  <table class = "table">
+    <tbody>
     <tr>
       <th> 氏名 </th>
       <th> <%= @customer.last_name %>
@@ -29,7 +29,8 @@
       <th> メールアドレス </th>
       <th> <%= @customer.email %> </th>
     </tr>
-</tbody>
-</table>
+    </tbody>
+  </table>
   <th>配送先一覧<%= link_to '一覧を見る', public_addresses_path %></th><br />
   <th>注文履歴<%= link_to '一覧を見る', public_orders_path %></th>
+</div>

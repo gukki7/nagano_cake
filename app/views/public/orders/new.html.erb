@@ -5,7 +5,7 @@
 	</div>
 	<div class="panel-body">
 
-    <%= form_with model: @orders, url: public_orders_path do |form| %>
+    <%= form_with model: @orders, url: public_orders_comfirm_path do |form| %>
 			<h3>支払方法</h3>
 
 			<span>　　　</span><%= form.radio_button :method, 0, checked: "checked" %>
@@ -21,11 +21,6 @@
 			<span>　　　　　</span><%= @order.postal_code %>
 			<%= @order.address %><br>
 			<span>　　　　　</span><%= @order.name %><br>
-
-
-			<span>　　　</span><%= form.radio_button :a_method, 1 %>
-			<%= form.label :登録済住所から選択 %><br>
-			<span>　　　　　</span><%= form.collection_select :address_for_order, @addresses, :id, :address_for_view %><br>
 
 
 

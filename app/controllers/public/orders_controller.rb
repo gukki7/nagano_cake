@@ -6,6 +6,7 @@ class Public::OrdersController < ApplicationController
   def new
   	@order = Order.new
     @cart_items = current_customer.cart_items
+    @customer = current_customer
   end
   
 	def show
@@ -21,7 +22,7 @@ class Public::OrdersController < ApplicationController
 
 		sum = 0
 		cart_items.each do |cart_item|
-			sum += (cart_item.item.price_without_tax * 1.1).floor * cart_item.quantity
+			sum += cart_item.item.price * cart_item.quantity
 		end
 
 		session[:order][:shipping_cost] = 800
@@ -40,17 +41,18 @@ class Public::OrdersController < ApplicationController
 
 		elsif destination == 1
 			address = Address.find(params[:address_for_order])
-			session[:order][:post_code] = address.postal_code
+			session[:order][:postal_code] = address.postal_code
 			session[:order][:address] = address.address
 			session[:order][:name] = address.name
 
 		elsif destination == 2
+
 			session[:new_address] = 2
-			session[:order][:post_code] = params[:post_code]
+			session[:order][:postal_code] = params[:postal_code]
 			session[:order][:address] = params[:address]
 			session[:order][:name] = params[:name]
 		end
-		if session[:order][:post_code].presence && session[:order][:address].presence && session[:order][:name].presence
+		if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
 			redirect_to new_customers_order_path
 		else
 			redirect_to public_orders_complete_path
