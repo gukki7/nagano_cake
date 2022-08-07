@@ -21,7 +21,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-
+      <td>
+        <%= link_to public_root_path do %>
+        <%= image_tag "no_image.jpeg" %>
+        <% end %>
+      </td>
       <% if  admin_signed_in? %>
         <li>
           <%= link_to "商品一覧", admin_items_path %>

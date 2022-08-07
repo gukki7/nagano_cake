@@ -8,13 +8,13 @@ class Public::OrdersController < ApplicationController
     @cart_items = current_customer.cart_items
     @customer = current_customer
   end
-  
+
 	def show
 		@order = Order.find(params[:id])
 		@order_details = @order.order_details
 	end
 
-	def create
+	def comfirm
 		customer = current_customer
 		session[:order] = Order.new
 
@@ -22,7 +22,7 @@ class Public::OrdersController < ApplicationController
 
 		sum = 0
 		cart_items.each do |cart_item|
-			sum += cart_item.item.price * cart_item.quantity
+			sum += cart_item.item.price * cart_item.amount
 		end
 
 		session[:order][:shipping_cost] = 800
@@ -32,7 +32,7 @@ class Public::OrdersController < ApplicationController
 		session[:order][:payment_method] = params[:method].to_i
 
 		destination = params[:a_method].to_i
-		
+
 		if destination == 0
 
 			session[:order][:postal_code] = customer.postal_code
@@ -52,14 +52,14 @@ class Public::OrdersController < ApplicationController
 			session[:order][:address] = params[:address]
 			session[:order][:name] = params[:name]
 		end
-		if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
-			redirect_to new_customers_order_path
-		else
-			redirect_to public_orders_complete_path
-		end
-	end
+		# if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
+		# 	redirect_to new_customers_order_path
+		# else
+		# 	redirect_to public_orders_complete_path
+		# end
 
-	def comfirm
     @cart_items = CartItem.all
 	end
 end
+
+

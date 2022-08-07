@@ -7,14 +7,19 @@ class Public::AddressesController < ApplicationController
   def create
     @addresses = Address.all
     @address = Address.new(address_params)
+    @address.customer_id = current_customer.id
     if @address.save
-       puts "保存に成功しました"
+      redirect_to public_addresses_path
     else
-       puts "保存に失敗しました"
+
     end
   end
 
   def update
+    address = Address.find(params[:id])
+    address.update(address_params)
+    address.customer_id = current_customer.id
+    redirect_to public_addresses_path
   end
 
   def destroy
@@ -28,8 +33,9 @@ class Public::AddressesController < ApplicationController
   end
 
   def edit
+    @address = Address.find(params[:id])
   end
-  
+
   private
   # ストロングパラメータ
   def address_params

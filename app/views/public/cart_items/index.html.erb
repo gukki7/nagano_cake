@@ -18,18 +18,18 @@
             <td class="col-xs-3"><%= cart_item.item.name %></td>
             <td class="col-xs-2">¥<%= cart_item.item.price %></td>
             <td class="col-xs-1">
-                <%= form_for(cart_item, url: customers_cart_item_path(cart_item)) do |c| %>
+                <%= form_for(cart_item, url: public_cart_item_path(cart_item)) do |c| %>
                 <p>
-                  <%= c.number_field :quantity, min:1, max:10000, step:1 %>
+                  <%= c.number_field :amount, min:1, max:10000, step:1 %>
                   <%= c.submit "変更", class: "btn btn-primary" %>
                 </p>
                 <% end %>
             </td>
             <td>
-                ¥<%= ((cart_item.item.price_without_tax * cart_item.quantity * 1.1).floor).to_s(:delimited, delimiter: ',') %>
+                ¥<%= (cart_item.item.price * cart_item.amount).to_s(:delimited, delimiter: ',') %>
             </td>
             <td>
-                <%= link_to "削除する", customers_cart_item_path(cart_item.id), method: :DELETE, class: "btn btn-danger" %>
+                <%= link_to "削除する", public_cart_item_path(cart_item.id), method: :DELETE, class: "btn btn-danger" %>
             </td>
           </tr>
           <% end %>

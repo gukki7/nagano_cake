@@ -14,7 +14,7 @@
           <% @cart_items.each do |cart_item| %>
             <tr>
               <td class="text-left">
-                <%= image_tag item.get_item_image(100, 100) %>
+                <%= image_tag cart_item.item.get_item_image(100, 100) %>
                 <%= cart_item.item.name %>
               </td>
               <td class="text-right">
