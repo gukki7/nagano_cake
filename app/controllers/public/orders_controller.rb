@@ -52,14 +52,28 @@ class Public::OrdersController < ApplicationController
 			session[:order][:address] = params[:address]
 			session[:order][:name] = params[:name]
 		end
-		# if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
-		# 	redirect_to new_customers_order_path
-		# else
-		# 	redirect_to public_orders_complete_path
-		# end
-
-    @cart_items = CartItem.all
+    	@cart_items = CartItem.all
 	end
+
+	def create
+    	@orders = Order.all
+    	@order = Order.new(order_params)
+    	if @order.save
+		  @order_details.each do |item|
+		  @order_item = OrderItem.new
+    	  @order_item.save
+    	  end
+    	end
+		if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
+		 	redirect_to new_customers_order_path
+		else
+			redirect_to public_orders_complete_path
+		end
+	end
+
+	private
+    def oredr_params
+      params.require(:order).permit(:address, :total_payment, :status)
+    end
+
 end
-
-

@@ -5,7 +5,18 @@
        このサイトは、ケーキ販売のECサイトになります。<br/>
        会員でない方も商品の閲覧はできますが、<br/>
        購入には会員登録が必要です。<br/>
-       <%=  link_to "会員登録はこちらから",  new_customer_registration_path %></p>
+       <%=  link_to "会員登録はこちらから",  new_customer_registration_path %>
+    </p><br/>
+    
+    <% @items.each do |item| %>
+    <td>
+      <%= link_to public_item_path(item.id) do %>
+      <%= image_tag item.get_item_image(100, 100) %>
+      <% end %>
+    </td>
+    <td><%= item. name%></td>
+    <td><%= item. price%></td><br/>
+    <% end %>
     </div>
   </div>
 </body>
