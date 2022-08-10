@@ -126,7 +126,7 @@ class Public::OrdersController < ApplicationController
       @order_detail.item_status = 0
       @order_detail.save
 	  end
-    end
+	end
 
 	private
     def order_params
