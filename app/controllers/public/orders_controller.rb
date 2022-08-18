@@ -16,50 +16,54 @@ class Public::OrdersController < ApplicationController
 
 	def comfirm
 	 @order = Order.new(order_params)
-	 @address = Address.find(params[:order][:address_id])
-	 @order.postal_code = @address.postal_code
-     @order.address = @address.address
-     @order.name = @address.name
-		session[:order] = Order.new
+	 @cart_items = current_customer.cart_items
 
-		cart_items = current_customer.cart_items
-
-		sum = 0
-		cart_items.each do |cart_item|
-			sum += cart_item.item.price * cart_item.amount
+		@sum = 0
+		@cart_items.each do |cart_item|
+			@sum += cart_item.item.price * cart_item.amount
 		end
-
-		session[:order][:shipping_cost] = 800
-		session[:order][:total_payment] = sum + session[:order][:shipping_cost]
-		session[:order][:status] = 0
-		session[:order][:id] = current_customer.id
-		session[:order][:payment_method] = params[:method].to_i
+		@order.shipping_cost = 800
+		@order.total_payment = @sum + 800
 
 		destination = params[:a_method].to_i
 
 		if destination == 0
 
-			session[:order][:postal_code] = customer.postal_code
-			session[:order][:address] = customer.address
-			session[:order][:name] = customer.last_name + customer.first_name
+			@order.postal_code = current_customer.postal_code
+			@order.address = current_customer.address
+			@order.name = current_customer.last_name + current_customer.first_name
 
 		elsif destination == 1
 			address = Address.find(params[:address_for_order])
-			session[:order][:postal_code] = address.postal_code
-			session[:order][:address] = address.address
-			session[:order][:name] = address.name
+			@order.postal_code = address.postal_code
+			@order.address = address.address
+			@order.name = address.name
 
 		elsif destination == 2
 
-			session[:new_address] = 2
-			session[:order][:postal_code] = params[:postal_code]
-			session[:order][:address] = params[:address]
-			session[:order][:name] = params[:name]
+			@order.postal_code = params[:postal_code]
+			@order.address = params[:address]
+			@order.name = params[:name]
 		end
-    	@cart_items = CartItem.all
 
 	end
-	
+
+	def create
+    	@orders = Order.all
+    	@order = Order.new(order_params)
+    	if @order.save
+		  @order_details.each do |item|
+		  @order_item = OrderItem.new
+    	  @order_item.save
+    	  end
+    	end
+		if @order.postal_code.presence && @order.address.presence && @order.name.presence
+		 	redirect_to new_customers_order_path
+		else
+			redirect_to public_orders_complete_path
+		end
+	end
+
 	def complete
 		order = Order.new(session[:order])
 		order.save
@@ -87,24 +91,10 @@ class Public::OrdersController < ApplicationController
 		# 購入後はカート内商品削除
 		cart_items.destroy_all
 	end
-	
 
-	def create
-    	@orders = Order.all
-    	@order = Order.new(order_params)
-    	if @order.save
-		  @order_details.each do |item|
-		  @order_item = OrderItem.new
-    	  @order_item.save
-    	  end
-    	end
-		if session[:order][:postal_code].presence && session[:order][:address].presence && session[:order][:name].presence
-		 	redirect_to new_customers_order_path
-		else
-			redirect_to public_orders_complete_path
-		end
-	end
-	
+
+
+
 	def create_order
     # オーダーの保存
     @order = Order.new
@@ -130,7 +120,7 @@ class Public::OrdersController < ApplicationController
 
 	private
     def order_params
-      params.require(:order).permit(:address, :postal_code, :name, :total_payment, :status)
+      params.require(:order).permit(:address, :postal_code, :name, :customer, :total_payment, :shipping_cost, :payment_method, :status)
     end
 
 end

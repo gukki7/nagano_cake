@@ -5,12 +5,12 @@
 	</div>
 	<div class="panel-body">
 
-    <%= form_with model: @orders, url: public_orders_comfirm_path do |form| %>
+    <%= form_with model: @order, url: public_orders_comfirm_path do |form| %>
 			<h3>支払方法</h3>
 
-			<span>　　　</span><%= form.radio_button :method, 0, checked: "checked" %>
+			<span>　　　</span><%= form.radio_button :payment_method, "クレジットカード", checked: "checked" %>
 	  		<%= form.label :クレジットカード %><br>
-	  		<span>　　　</span><%= form.radio_button :method, 1 %>
+	  		<span>　　　</span><%= form.radio_button :payment_method, "銀行振込" %>
 	  		<%= form.label :銀行振込 %>
 
 

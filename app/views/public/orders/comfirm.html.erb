@@ -30,22 +30,24 @@
           <% end %>
         </tbody>
       </table>
+    　<%= form_with(model: @order, url:public_orders_path, method: :post) do |f| %>
+    　<%= f.hidden_field :postal_code, :value => @order.postal_code %>
       <table class="table table-hover table-condensed table-bordered">
           <tr>
             <th class="info">配送料</th>
-            <td class="text-right col-xs-5">   ¥<%= session[:order]["shipping_cost"].to_s(:delimited, delimiter: ',') %>
+            <td class="text-right col-xs-5">   ¥800
             </td>
           </tr>
           <tr>
             <th class="info">商品合計</th>
             <td class="text-right">
-              ¥<%= (session[:order]["total_payment"] - session[:order]["shipping_cost"]).to_s(:delimited, delimiter: ',') %>
+              ¥<%= @sum.to_s(:delimited, delimiter: ',') %>
             </td>
           </tr>
           <tr>
             <th class="info">請求金額</th>
             <td class="text-right">
-              ¥<%= session[:order]["total_payment"].to_s(:delimited, delimiter: ',') %>
+              ¥<%= @order.total_payment.to_s(:delimited, delimiter: ',') %>
             </td>
           </tr>
       </table>
@@ -53,20 +55,19 @@
         <tr>
           <th  class="info">支払方法</th>
           <td class="text-left">
-            <%= session[:order]["payment_method"] %>
+            <%= @order.payment_method %>
           </td>
         </tr>
         <tr>
           <th  class="info">お届け先</th>
           <td class="text-left">
-            <%= session[:order]["postal_code"] %><br>
-            <%= session[:order]["address"] %><br>
-            <%= session[:order]["name"]  %>
+            <%= @order.postal_code] %><br>
+            <%= @order.address %><br>
+            <%= @order.name %>
           </td>
         </tr>
       </table>
-
-      <%= link_to "購入を確定する", public_orders_complete_path, class: 'btn btn-primary col-xs-12' %>
-
+      <%= f.submit '購入を確定する' ,class: "col-xs-2 pull-right btn-lg btn-success " %>
+      <% end %>
     </div>
 </div>
