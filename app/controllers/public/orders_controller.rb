@@ -49,8 +49,8 @@ class Public::OrdersController < ApplicationController
 	end
 
 	def create
-    	@orders = Order.all
     	@order = Order.new(order_params)
+    	@order.customer_id = current_customer.id
     	if @order.save
 		  @order_details.each do |item|
 		  @order_item = OrderItem.new
@@ -58,14 +58,16 @@ class Public::OrdersController < ApplicationController
     	  end
     	end
 		if @order.postal_code.presence && @order.address.presence && @order.name.presence
-		 	redirect_to new_customers_order_path
+			puts "-----------------------------test1"
+		 	redirect_to public_orders_complete_path
 		else
-			redirect_to public_orders_complete_path
+			puts "-----------------------------test2"
+			redirect_to new_public_order_path
 		end
 	end
 
 	def complete
-		order = Order.new(session[:order])
+		order = Order.new(order_params)
 		order.save
 
 		if session[:new_address]
@@ -120,7 +122,7 @@ class Public::OrdersController < ApplicationController
 
 	private
     def order_params
-      params.require(:order).permit(:address, :postal_code, :name, :customer, :total_payment, :shipping_cost, :payment_method, :status)
+      params.require(:order).permit(:address, :postal_code, :name, :total_payment, :shipping_cost, :payment_method, :status)
     end
 
 end

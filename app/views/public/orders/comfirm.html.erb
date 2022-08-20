@@ -32,6 +32,13 @@
       </table>
     　<%= form_with(model: @order, url:public_orders_path, method: :post) do |f| %>
     　<%= f.hidden_field :postal_code, :value => @order.postal_code %>
+    　<%= f.hidden_field :address, :value => @order.address %>
+    　<%= f.hidden_field :name, :value => @order.name %>
+    　<%= f.hidden_field :customer, :value => @order.customer %>
+    　<%= f.hidden_field :total_payment, :value => @order.total_payment %>
+    　<%= f.hidden_field :shipping_cost, :value => @order.shipping_cost %>
+    　<%= f.hidden_field :payment_method, :value => @order.payment_method %>
+    　<%= f.hidden_field :status, :value => @order.status %>
       <table class="table table-hover table-condensed table-bordered">
           <tr>
             <th class="info">配送料</th>
@@ -61,7 +68,7 @@
         <tr>
           <th  class="info">お届け先</th>
           <td class="text-left">
-            <%= @order.postal_code] %><br>
+            <%= @order.postal_code %><br>
             <%= @order.address %><br>
             <%= @order.name %>
           </td>
