@@ -52,11 +52,17 @@ class Public::OrdersController < ApplicationController
     	@order = Order.new(order_params)
     	@order.customer_id = current_customer.id
     	if @order.save
-		  @order_details.each do |item|
-		  @order_item = OrderItem.new
-    	  @order_item.save
+		  	current_customer.cart_items.each do |cart_item|
+		  	order_detail = OrderDetail.new
+		  	order_detail.order_id = @order.id
+		  	order_detail.item_id = cart_item.item_id
+		  	order_detail.price = cart_item.item.price
+		  	order_detail.amount = cart_item.amount
+		  	order_detail.making_status = 0
+    	  order_detail.save
     	  end
     	end
+    	current_customer.cart_items.destroy_all
 		if @order.postal_code.presence && @order.address.presence && @order.name.presence
 			puts "-----------------------------test1"
 		 	redirect_to public_orders_complete_path
@@ -67,57 +73,7 @@ class Public::OrdersController < ApplicationController
 	end
 
 	def complete
-		order = Order.new(order_params)
-		order.save
 
-		if session[:new_address]
-			address = current_customer.addresses.new
-			address.postal_code = order.postal_code
-			address.address = order.address
-			address.name = order.name
-			address.save
-			session[:new_address] = nil
-		end
-
-		cart_items = current_customer.cart_items
-		cart_items.each do |cart_item|
-			order_detail = OrderDetail.new
-			order_detail.order_id = order.id
-			order_detail.item_id = cart_item.item.id
-			order_detail.amount = cart_item.amount
-			order_detail.making_status = 0
-			order_detail.price = cart_item.item.price
-			order_detail.save
-		end
-
-		# 購入後はカート内商品削除
-		cart_items.destroy_all
-	end
-
-
-
-
-	def create_order
-    # オーダーの保存
-    @order = Order.new
-    @order.customer_id = current_customer.id
-    @order.address = session[:address]
-    @order.payment = session[:payment]
-    @order.total_price = calculate(current_customer)
-    @order.order_status = 0
-    @order.save
-    # saveができた段階でOrderモデルにorder_idが入る
-
-    # オーダー商品ごとの詳細の保存
-	  current_customer.cart_items.each do |cart|
-      @order_detail = OrderDetail.new
-      @order_detail.order_id = @order.id
-      @order_detail.item_name = cart.item.name
-      @order_detail.item_price = cart.item.price
-      @order_detail.amount = cart.amount
-      @order_detail.item_status = 0
-      @order_detail.save
-	  end
 	end
 
 	private

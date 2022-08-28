@@ -14,7 +14,7 @@
               <tr>
                 <th class="info">配送先</th>
                 <td class="text-left">
-                  <%= @order.post_code %><br>
+                  <%= @order.postal_code %><br>
                   <%= @order.address %><br>
                   <%= @order.name %>
                 </td>
@@ -28,7 +28,7 @@
               <tr>
                 <th class="info">ステータス</th>
                 <td class="text-left">
-                  <%= @order.order_status %>
+                  <%= @order.status %>
                 </td>
               </tr>
           </tbody>
@@ -41,13 +41,13 @@
             <tr>
               <th class="info">配送料</th>
               <td class="col-xs-5">
-                ¥<%= @order.postage.to_s(:delimited, delimiter: ',') %>
+                ¥<%= @order.shipping_cost.to_s(:delimited, delimiter: ',') %>
               </td>
             </tr>
             <tr>
               <th class="info">商品合計</th>
               <td class="col-xs-5">
-                ¥<%= (@order.total_payment - @order.postage).to_s(:delimited, delimiter: ',') %>
+                ¥<%= (@order.total_payment - @order.shipping_cost).to_s(:delimited, delimiter: ',') %>
               </td>
             </tr>
             <tr>
@@ -64,7 +64,7 @@
           <thead>
             <tr class="info">
                 <th>商品</th>
-                <th>単価(税込)</th>
+                <th>単価</th>
                 <th>個数</th>
                 <th>小計</th>
             </tr>
@@ -73,9 +73,9 @@
         	<% @order_details.each do |order_detail| %>
             <tr>
                 <td><%= order_detail.item.name %></td>
-                <td>¥<%= (order_detail.item.price_without_tax * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
-                <td><%= order_detail.quantity %></td>
-                <td>¥<%= ((order_detail.item.price_without_tax * 1.1).floor * (order_detail.quantity)).to_s(:delimited, delimiter: ',') %></td>
+                <td>¥<%= order_detail.price %></td>
+                <td><%= order_detail.amount %></td>
+                <td>¥<%= (order_detail.price) * (order_detail.amount) %></td>
             </tr>
           <% end %>
           </tbody>
